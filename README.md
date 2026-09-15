@@ -34,42 +34,46 @@ This project automates a core customer booking flow for the Restful Booker demo 
 
 ### Why these scenarios
 
-The booking journey is the most important user flow on the site because it directly drives the primary business action for the application. The automated scenarios cover:
+I selected the booking flow because it represents the most important customer journey on the application: users search for dates, choose a room, complete the reservation form, and receive confirmation. The scenarios were chosen to cover the business-critical path and a key validation rule that protects the form from invalid data.
 
-- room discovery
-- date-based availability checks
-- room selection
-- reservation form completion
-- business-rule validation
-- confirmation state verification
+The automated coverage includes:
 
-This gives coverage across the critical happy path and a key defensive validation rule without over-testing low-value UI components.
+- room discovery and searching
+- date-based room availability flow
+- room selection and navigation into the booking form
+- successful reservation completion
+- validation of short phone numbers
+- repeat validation with fresh generated customer details
+
+This gives confidence in the primary user journey while also checking an important business rule that could otherwise allow invalid user input.
 
 ### Assumptions
 
-- The public demo environment remains available during execution.
-- Guest form validation is enforced on the frontend and the resulting error message is deterministic.
-- Room pricing and availability are stable enough for the selected dates to predict the expected booking flow.
+- The public demo site is available and stable during test execution.
+- The app uses a predictable booking flow with dates pre-filled from the current day.
+- The room selection and booking form structure remain consistent enough for reliable automation.
 
 ### Risks identified
 
-- Date formatting and calendar behavior can vary slightly across browsers or locale settings.
-- The demo site may update text or validation messages over time.
-- Dynamic test data is important to reduce false positives caused by fixed values or repeated email/phone payloads.
+- Date and time handling can change if the app behavior is updated or localized.
+- UI text and validation messages may vary over time and must be validated against the live page.
+- Hard-coded customer data would reduce realism and increase the chance of duplicate failures, so dynamic generation is safer.
 
 ## Time Spent
 
-- Exploration: 1 hour
-- Framework setup: 30 minutes
-- Automation development: 2 hours
+- Exploration and live app review: approximately 1 hour
+- Framework setup and dependency installation: approximately 30 minutes
+- Test design, implementation, and refinements: approximately 2 hours
 
 ## AI Usage Disclosure
 
-Used GitHub Copilot for:
+AI tools were used as a support mechanism, but the core QA work was carried out manually and validated directly against the live application.
 
-- project scaffolding and TypeScript configuration
-- creating robust Playwright selectors for the room and reservation flow
-- designing a data-driven test strategy using generated customer data
-- drafting and refining this README
+GitHub Copilot was used for:
 
-The automation logic, scenario selection, and documentation were AI-assisted, and the browser-based validation was checked against the live application. The test data is generated dynamically with Faker rather than using hard-coded personal details.
+- helping with initial project setup and TypeScript scaffolding
+- suggesting candidate selectors and Playwright patterns for the booking flow
+- assisting with dynamic data generation ideas and scenario wording
+- helping polish the project documentation and README structure
+
+The actual test scenarios, validation steps, selectors, browser-based checks, and final fixes were driven by hands-on review of the application. I reviewed the AI suggestions, adapted them to the real page behavior, and added/modifed the cases where the live application required different timing or validation logic. The dynamic customer data is generated with Faker to avoid repeated hard-coded details and better reflect a realistic booking workflow.
